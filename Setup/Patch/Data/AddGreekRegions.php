@@ -5,21 +5,36 @@
  * @category     MageVision
  * @package      MageVision_GreekRegions
  * @author       MageVision Team
- * @copyright    Copyright (c) 2018 MageVision (http://www.magevision.com)
+ * @copyright    Copyright (c) 2019 MageVision (http://www.magevision.com)
  * @license      http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-namespace MageVision\GreekRegions\Setup;
+declare(strict_types=1);
 
-use Magento\Framework\Setup\InstallDataInterface;
-use Magento\Framework\Setup\ModuleContextInterface;
+namespace MageVision\GreekRegions\Setup\Patch\Data;
+
 use Magento\Framework\Setup\ModuleDataSetupInterface;
+use Magento\Framework\Setup\Patch\DataPatchInterface;
 
-class InstallData implements InstallDataInterface
+class AddGreekRegions implements DataPatchInterface
 {
+    /**
+     * @var ModuleDataSetupInterface
+     */
+    private $moduleDataSetup;
+
+    /**
+     * @param ModuleDataSetupInterface $moduleDataSetup
+     */
+    public function __construct(
+        ModuleDataSetupInterface $moduleDataSetup
+    ) {
+        $this->moduleDataSetup = $moduleDataSetup;
+    }
+
     /**
      * {@inheritdoc}
      */
-    public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
+    public function apply()
     {
         /**
          * Fill table directory/country_region
@@ -82,14 +97,49 @@ class InstallData implements InstallDataInterface
 
         foreach ($data as $row) {
             $bind = ['country_id' => $row[0], 'code' => $row[1], 'default_name' => $row[3]];
-            $setup->getConnection()->insert($setup->getTable('directory_country_region'), $bind);
-            $regionId = $setup->getConnection()->lastInsertId($setup->getTable('directory_country_region'));
+            $this->moduleDataSetup->getConnection()->insert(
+                $this->moduleDataSetup->getTable('directory_country_region'),
+                $bind
+            );
+            $regionId = $this->moduleDataSetup->getConnection()->lastInsertId(
+                $this->moduleDataSetup->getTable('directory_country_region')
+            );
 
             $bind = ['locale' => 'en_US', 'region_id' => $regionId, 'name' => $row[3]];
-            $setup->getConnection()->insert($setup->getTable('directory_country_region_name'), $bind);
+            $this->moduleDataSetup->getConnection()->insert(
+                $this->moduleDataSetup->getTable('directory_country_region_name'),
+                $bind
+            );
 
             $bind = ['locale' => 'el_GR', 'region_id' => $regionId, 'name' => $row[2]];
-            $setup->getConnection()->insert($setup->getTable('directory_country_region_name'), $bind);
+            $this->moduleDataSetup->getConnection()->insert(
+                $this->moduleDataSetup->getTable('directory_country_region_name'),
+                $bind
+            );
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getDependencies(): array
+    {
+        return [];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getVersion(): string
+    {
+        return '2.3.1';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAliases(): array
+    {
+        return [];
     }
 }
