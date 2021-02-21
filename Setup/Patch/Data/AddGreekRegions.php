@@ -4,8 +4,9 @@
  *
  * @category     MageVision
  * @package      MageVision_GreekRegions
+ *
  * @author       MageVision Team
- * @copyright    Copyright (c) 2020 MageVision (http://www.magevision.com)
+ * @copyright    Copyright (c) 2021 MageVision (http://www.magevision.com)
  * @license      http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 declare(strict_types=1);
@@ -92,7 +93,7 @@ class AddGreekRegions implements DataPatchInterface
             ['GR', 'PH', 'Φωκίδας', 'Phocis'],
             ['GR', 'CHAL', 'Χαλκιδικής', 'Chalkidiki'],
             ['GR', 'CH', 'Χανίων', 'Chania'],
-            ['GR', 'CHI', 'Χίου', 'Chios']
+            ['GR', 'CHI', 'Χίου', 'Chios'],
         ];
 
         foreach ($data as $row) {
@@ -125,14 +126,6 @@ class AddGreekRegions implements DataPatchInterface
     public static function getDependencies(): array
     {
         return [];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function getVersion(): string
-    {
-        return '2.3.1';
     }
 
     /**
