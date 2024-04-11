@@ -2,12 +2,12 @@
 /**
  * MageVision Greek Regions Extension
  *
- * @category     MageVision
- * @package      MageVision_GreekRegions
+ * @category MageVision
+ * @package  MageVision_GreekRegions
  *
- * @author       MageVision Team
- * @copyright    Copyright (c) 2024 MageVision (https://www.magevision.com)
- * @license      http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author    MageVision Team
+ * @copyright Copyright (c) 2024 MageVision (https://www.magevision.com)
+ * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 declare(strict_types=1);
 
