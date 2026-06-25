@@ -115,6 +115,8 @@ class AddGreekRegions implements DataPatchInterface
                 $bind
             );
         }
+
+        return $this;
     }
 
     /**
